@@ -1,8 +1,6 @@
 import { Router } from "express";
 import ProductController from "../controllers/ProductController";
 
-// Criamos uma instância do Router do Express
-// Ele é responsável por agrupar todas as rotas relacionadas a produtos
 const router = Router();
 
 /**
@@ -10,8 +8,6 @@ const router = Router();
  * tags:
  *   name: Products
  *   description: Gerenciamento de produtos
- *
- * Essa tag organiza as rotas no Swagger UI dentro do grupo "Products"
  */
 
 /**
@@ -20,7 +16,6 @@ const router = Router();
  *   post:
  *     summary: Cria um novo produto
  *     tags: [Products]
- *     description: Rota responsável por cadastrar um novo produto no sistema
  *     requestBody:
  *       required: true
  *       content:
@@ -45,37 +40,32 @@ const router = Router();
  *       201:
  *         description: Produto criado com sucesso
  *       400:
- *         description: Erro de validação dos dados enviados
+ *         description: Erro de validação
  */
 router.post("/", ProductController.create);
-// POST /products → chama o controller para criar um produto
 
 /**
  * @swagger
  * /products:
  *   get:
- *     summary: Lista produtos com paginação e filtros
+ *     summary: Lista produtos com paginação
  *     tags: [Products]
- *     description: Retorna uma lista paginada de produtos cadastrados
  *     parameters:
  *       - in: query
  *         name: page
  *         schema:
  *           type: integer
  *           example: 1
- *         description: Número da página
  *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
  *           example: 10
- *         description: Quantidade de itens por página
  *     responses:
  *       200:
- *         description: Lista de produtos retornada com sucesso
+ *         description: Lista de produtos
  */
 router.get("/", ProductController.list);
-// GET /products → lista produtos com paginação
 
 /**
  * @swagger
@@ -83,14 +73,12 @@ router.get("/", ProductController.list);
  *   get:
  *     summary: Busca um produto pelo ID
  *     tags: [Products]
- *     description: Retorna os dados de um único produto
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID do produto
  *     responses:
  *       200:
  *         description: Produto encontrado
@@ -98,7 +86,6 @@ router.get("/", ProductController.list);
  *         description: Produto não encontrado
  */
 router.get("/:id", ProductController.show);
-// GET /products/:id → busca um produto específico
 
 /**
  * @swagger
@@ -106,14 +93,12 @@ router.get("/:id", ProductController.show);
  *   put:
  *     summary: Atualiza um produto
  *     tags: [Products]
- *     description: Atualiza os dados de um produto existente
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID do produto
  *     requestBody:
  *       required: true
  *       content:
@@ -123,21 +108,15 @@ router.get("/:id", ProductController.show);
  *             properties:
  *               name:
  *                 type: string
- *                 example: Mouse Gamer
  *               price:
  *                 type: number
- *                 example: 150.50
  *               quantity:
  *                 type: integer
- *                 example: 5
  *     responses:
  *       200:
- *         description: Produto atualizado com sucesso
- *       404:
- *         description: Produto não encontrado
+ *         description: Produto atualizado
  */
 router.put("/:id", ProductController.update);
-// PUT /products/:id → atualiza produto
 
 /**
  * @swagger
@@ -145,23 +124,16 @@ router.put("/:id", ProductController.update);
  *   delete:
  *     summary: Remove um produto
  *     tags: [Products]
- *     description: Exclui um produto do sistema
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID do produto
  *     responses:
  *       200:
- *         description: Produto removido com sucesso
- *       404:
- *         description: Produto não encontrado
+ *         description: Produto removido
  */
 router.delete("/:id", ProductController.delete);
-// DELETE /products/:id → remove produto
 
-// ⚠️ ESSA LINHA É FUNDAMENTAL
-// Exportamos o router como DEFAULT para que o server.ts consiga importar corretamente
 export default router;
