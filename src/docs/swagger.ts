@@ -11,7 +11,7 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: "http://localhost:3333", // URL base da API
+        url: "https://smartstock-backend-kevj.onrender.com",
       },
     ],
   },
