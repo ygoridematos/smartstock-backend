@@ -1,10 +1,13 @@
-import { Router } from "express";
-import ProductController from "../controllers/ProductController";
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ProductController_1 = __importDefault(require("../controllers/ProductController"));
 // Criamos uma instância do Router do Express
 // Ele é responsável por agrupar todas as rotas relacionadas a produtos
-const router = Router();
-
+const router = (0, express_1.Router)();
 /**
  * @swagger
  * tags:
@@ -13,7 +16,6 @@ const router = Router();
  *
  * Essa tag organiza as rotas no Swagger UI dentro do grupo "Products"
  */
-
 /**
  * @swagger
  * /products:
@@ -47,9 +49,8 @@ const router = Router();
  *       400:
  *         description: Erro de validação dos dados enviados
  */
-router.post("/", ProductController.create);
+router.post("/", ProductController_1.default.create);
 // POST /products → chama o controller para criar um produto
-
 /**
  * @swagger
  * /products:
@@ -74,9 +75,8 @@ router.post("/", ProductController.create);
  *       200:
  *         description: Lista de produtos retornada com sucesso
  */
-router.get("/", ProductController.list);
+router.get("/", ProductController_1.default.list);
 // GET /products → lista produtos com paginação
-
 /**
  * @swagger
  * /products/{id}:
@@ -97,9 +97,8 @@ router.get("/", ProductController.list);
  *       404:
  *         description: Produto não encontrado
  */
-router.get("/:id", ProductController.show);
+router.get("/:id", ProductController_1.default.show);
 // GET /products/:id → busca um produto específico
-
 /**
  * @swagger
  * /products/{id}:
@@ -136,9 +135,8 @@ router.get("/:id", ProductController.show);
  *       404:
  *         description: Produto não encontrado
  */
-router.put("/:id", ProductController.update);
+router.put("/:id", ProductController_1.default.update);
 // PUT /products/:id → atualiza produto
-
 /**
  * @swagger
  * /products/{id}:
@@ -159,9 +157,8 @@ router.put("/:id", ProductController.update);
  *       404:
  *         description: Produto não encontrado
  */
-router.delete("/:id", ProductController.delete);
+router.delete("/:id", ProductController_1.default.delete);
 // DELETE /products/:id → remove produto
-
 // ⚠️ ESSA LINHA É FUNDAMENTAL
 // Exportamos o router como DEFAULT para que o server.ts consiga importar corretamente
-export default router;
+exports.default = router;
