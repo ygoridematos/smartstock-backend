@@ -1,13 +1,16 @@
 import { prisma } from "../database/prisma";
 
-/**
- * Service cuida apenas da regra de negócio e banco
- * NÃO faz validação de formato — isso é papel do controller
- */
 class CreateProductService {
+  /**
+   * Cria um produto no banco de dados.
+   * Nota: A validação dos dados já foi feita no Controller.
+   */
   async execute(name: string, quantity: number) {
     const product = await prisma.product.create({
-      data: { name, quantity },
+      data: {
+        name,
+        quantity,
+      },
     });
 
     return product;

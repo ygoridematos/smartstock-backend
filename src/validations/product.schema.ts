@@ -1,25 +1,21 @@
 import { z } from "zod";
 
 /**
- * Schema de validação para CRIAR produto
- * Aqui garantimos que os dados recebidos são válidos
+ * SCHEMA DE VALIDAÇÃO (ZOD)
+ * Centraliza as regras de integridade dos dados.
  */
+
 export const createProductSchema = z.object({
-  // Nome precisa ser texto com tamanho mínimo e máximo
   name: z
-    .string()
+    .string({ required_error: "Nome é obrigatório" })
     .min(3, "Nome deve ter no mínimo 3 caracteres")
     .max(100, "Nome muito longo"),
 
-  // Quantidade deve ser número inteiro e não negativo
   quantity: z
-    .number()
+    .number({ required_error: "Quantidade é obrigatória" })
     .int("Quantidade deve ser um número inteiro")
     .nonnegative("Quantidade não pode ser negativa"),
 });
 
-/**
- * Schema para ATUALIZAR produto
- * partial() transforma todos os campos em opcionais
- */
+// Partial torna todos os campos opcionais para updates parciais (PATCH/PUT)
 export const updateProductSchema = createProductSchema.partial();
