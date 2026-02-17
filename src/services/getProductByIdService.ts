@@ -8,6 +8,8 @@ import AppError from "../errors/AppError";
 class GetProductByIdService {
   /**
    * @param id Identificador único do produto
+   * @throws AppError se o produto não for encontrado.
+   * @returns O produto encontrado.
    */
   async execute(id: string) {
     // 1. BUSCA: Utilizamos o findUnique do Prisma por ser mais performático para chaves primárias.
@@ -15,7 +17,7 @@ class GetProductByIdService {
       where: { id },
     });
 
-    // 2. VALIDAÇÃO: Se o retorno for nulo (null), o ID é inválido ou não existe no banco.
+    // 2. VALIDAÇÃO: Se o retorno for nulo, o ID é inválido ou não existe no banco.
     if (!product) {
       throw new AppError("Produto não encontrado", 404);
     }
